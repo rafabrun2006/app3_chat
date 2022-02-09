@@ -3,7 +3,7 @@
     <ion-title>
       Chat
     </ion-title>
-    <ion-title size="small">{{ username }}</ion-title>
+    <ion-title size="small"><strong>{{ username }}</strong></ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -11,7 +11,9 @@
     <ion-item *ngFor="let msg of messages">
       <ion-icon name="people" [slot]="username == msg.author ? 'end' : 'start'"></ion-icon>
       <ion-label text-wrap>{{ msg.text  }}</ion-label>
-      <ion-note [slot]="username == msg.author ? 'start' : 'end'">{{ msg.author == username ? 'Você':msg.author }}</ion-note>
+      <ion-note [slot]="username == msg.author ? 'start' : 'end'">
+        <strong>{{ msg.author == username ? 'Você':msg.author }}</strong>
+      </ion-note>
     </ion-item>
   </ion-list>
 </ion-content>
