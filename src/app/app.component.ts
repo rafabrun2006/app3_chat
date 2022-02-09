@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { initializeApp } from "firebase/app";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,12 @@ import { initializeApp } from "firebase/app";
 export class AppComponent {
   constructor() {
     initializeApp({
-      apiKey: "AIzaSyB-HEUlWiEtokt8uI0oS2aX-gxQXQpi1AQ",
-      authDomain: "chat-9fcd5.firebaseapp.com",
-      projectId: "chat-9fcd5",
-      storageBucket: "chat-9fcd5.appspot.com",
-      messagingSenderId: "433694011323",
-      appId: "1:433694011323:web:8430616a7c6622c4851e9e"
+      apiKey: environment.apiKey,
+      authDomain: environment.authDomain,
+      projectId: environment.projectId,
+      storageBucket: environment.storageBucket,
+      messagingSenderId: environment.messagingSenderId,
+      appId: environment.appId
     });
   }
 }
