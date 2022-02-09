@@ -1,8 +1,8 @@
 "use strict";
 
 import { Component, NgZone } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { getDatabase, ref, push, set, onValue, onChildChanged } from "firebase/database";
+import { LoadingController} from '@ionic/angular';
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 @Component({
   selector: 'app-home',
