@@ -2,7 +2,7 @@
 
 Como executar o aplicativo
 
-Requires [Node.js](https://nodejs.org/) v10+ to run, [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/), [Firebase])https://firebase.google.com/).
+Requires [Node.js](https://nodejs.org/) v10+ to run, [Ionic](https://ionicframework.com/), [Capacitor](https://capacitorjs.com/), [Firebase](https://firebase.google.com/).
 
 Comandos a serem executados apos baixar o projeto.
 
