@@ -3,14 +3,15 @@
     <ion-title>
       Chat
     </ion-title>
+    <ion-title size="small">{{ username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list no-lines>
     <ion-item *ngFor="let msg of messages">
-      <ion-icon name="people" slot="start"></ion-icon>
-      <ion-label>{{ msg.text }}</ion-label>
-      <ion-note slot="end">{{ msg.author }}</ion-note>
+      <ion-icon name="people" [slot]="username == msg.author ? 'end' : 'start'"></ion-icon>
+      <ion-label text-wrap>{{ msg.text  }}</ion-label>
+      <ion-note [slot]="username == msg.author ? 'start' : 'end'">{{ msg.author == username ? 'Você':msg.author }}</ion-note>
     </ion-item>
   </ion-list>
 </ion-content>
@@ -20,7 +21,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="11">
-          <ion-input [(ngModel)]="message" placeholder="Escrever uma mensagem..."></ion-input>
+          <ion-input [(ngModel)]="message" placeholder="Escrever uma mensagem..." (keyup.enter)="send()"></ion-input>
         </ion-col>
         <ion-col size="1">
           <ion-button (click)="send()">

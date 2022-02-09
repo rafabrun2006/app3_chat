@@ -1,8 +1,10 @@
 "use strict";
 
 import { Component, NgZone } from '@angular/core';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
+import { getDatabase, ref, push, set, onValue, onChildChanged } from "firebase/database";
+import { getFirestore, getDocs, collection, addDoc, onSnapshot } from "firebase/firestore"
 
 @Component({
   selector: 'app-home',
@@ -10,13 +12,13 @@ import { getDatabase, ref, push, set, onValue } from "firebase/database";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  public app;
-  public messages = [];
+  
+  public messages: Array<any>;
   public message: string;
-  public messagesRef = null;
+  public messagesRef;
+  public username;
 
-  constructor(public _zone: NgZone) {
+  constructor(public _zone: NgZone, public loadingController: LoadingController) {
 
     const firebaseConfig = {
       apiKey: "AIzaSyB-HEUlWiEtokt8uI0oS2aX-gxQXQpi1AQ",
@@ -32,17 +34,30 @@ export class HomePage {
     const db = getDatabase();
     this.messagesRef = ref(db, 'messages');
 
+    this.username = localStorage.getItem('username');
+    if (!this.username) {
+      this.username = (new Date()).getTime();
+      localStorage.setItem('username', String(this.username));
+    }
+
     this.load();
   }
 
-  public load() {
+  public async load() {
+    const loading = await this.loadingController.create({message: 'Carregando mensagens...'});
+    loading.present();
+
     onValue(this.messagesRef, async (snapshot) => {
-      this.messages = snapshot.val();
+      this._zone.run(() => {
+        this.messages = snapshot.val() ? snapshot.val() : [];
+      });
+
+      loading.dismiss();
     });
   }
 
   public send() {
-    this.messages.push({ text: this.message, author: 'rafabrun2006' });
+    this.messages.push({ text: this.message, author: this.username });
     set(this.messagesRef, this.messages);
     this.message = null;
   }
