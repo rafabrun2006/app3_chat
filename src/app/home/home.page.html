@@ -5,20 +5,29 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Chat</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content>
+  <ion-list no-lines>
+    <ion-item *ngFor="let msg of messages">
+      <ion-icon name="people" slot="start"></ion-icon>
+      <ion-label>{{ msg.text }}</ion-label>
+      <ion-note slot="end">{{ msg.author }}</ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
-<ion-footer>
+<ion-footer no-border>
   <ion-toolbar>
-    <div id="container">
-      
-    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="11">
+          <ion-input [(ngModel)]="message" placeholder="Escrever uma mensagem..."></ion-input>
+        </ion-col>
+        <ion-col size="1">
+          <ion-button (click)="send()">
+            <ion-icon name="send"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-footer>
